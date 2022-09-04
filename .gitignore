@@ -13,8 +13,6 @@ lerna-debug.log*
 /.svelte-kit
 /package
 .env
-.env.*
-!.env.example
 .vercel
 .output
 
