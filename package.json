@@ -1,0 +1,27 @@
+{
+    "name": "images.kenabot",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts"
+    },
+    "dependencies": {
+        "axios": "0.27.2",
+        "cors": "2.8.5",
+        "dotenv": "16.0.1",
+        "express": "4.18.1"
+    },
+    "devDependencies": {
+        "@types/axios": "0.14.0",
+        "@types/cors": "2.8.12",
+        "@types/dotenv": "8.2.0",
+        "@types/express": "4.17.13",
+        "@types/node": "18.7.13",
+        "ts-node-dev": "2.0.0",
+        "typescript": "4.7.4"
+    }
+}
