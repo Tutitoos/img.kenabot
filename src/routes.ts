@@ -11,7 +11,8 @@ routes.get("/users", (_req: Request, res: Response) => {
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
     return res.send(arrayCache.map((user: UsersCache) => ({
         createdAt: user.createdAt,
-        id: user.id
+        id: user.id,
+        avatar: `https://img.kenabot.xyz/user/${user.id}`
     })));
 });
 
