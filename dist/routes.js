@@ -13,6 +13,15 @@ const express_1 = require("express");
 const discord_controller_1 = require("./controllers/discord.controller");
 const index_1 = require("./index");
 const routes = (0, express_1.Router)();
+routes.get("/users", (_req, res) => {
+    res.status(200);
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    return res.send(index_1.arrayCache.map((user) => ({
+        createdAt: user.createdAt,
+        id: user.id
+    })));
+});
 routes.get("/user/:userID", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userID } = req.params;
     if (!userID) {

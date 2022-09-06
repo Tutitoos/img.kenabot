@@ -5,6 +5,16 @@ import { UsersCache } from "./types/users";
 
 const routes = Router();
 
+routes.get("/users", (_req: Request, res: Response) => {
+    res.status(200)
+    res.setHeader("Content-Type", "application/json")
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+    return res.send(arrayCache.map((user: UsersCache) => ({
+        createdAt: user.createdAt,
+        id: user.id
+    })));
+});
+
 routes.get("/user/:userID", async (req: Request, res: Response) => {
     const { userID } = req.params;
     if (!userID) {
