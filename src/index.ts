@@ -3,16 +3,25 @@ import { getUser } from "./controllers/discord.controller";
 import { server } from "./server";
 import { UsersCache } from "./types/users";
 
+export const config: {
+    createdAt: number;
+    refresh: number;
+} = {
+    createdAt: 86400000,
+    refresh: 86400000
+}
+
 export let arrayCache: UsersCache[] = [];
+
+let loading: boolean = false;
 
 export const delay = async (timeout: number) => new Promise((resolve) => setTimeout(resolve, timeout));
 
-let loading: boolean = false;
 
 (async function () {
     await server();
     if (!loading) await refreshData();
-    if (loading) setInterval(() => refreshData(), 86400000);
+    if (loading) setInterval(() => refreshData(), config.refresh);
 })();
 
 
@@ -24,7 +33,7 @@ async function refreshData() {
             const { data } = await getUser(key.id);
             if (typeof data === "object" && data) {
                 const findUserIndex = arrayCache.findIndex((user: UsersCache) => user.id === key.id);
-                arrayCache[findUserIndex].createdAt = DATE_NOW + 86400000;
+                arrayCache[findUserIndex].createdAt = DATE_NOW + config.createdAt;
                 arrayCache[findUserIndex].avatar = data.avatar;
             }
         }

@@ -9,21 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delay = exports.arrayCache = void 0;
+exports.delay = exports.arrayCache = exports.config = void 0;
 require("dotenv/config");
 const discord_controller_1 = require("./controllers/discord.controller");
 const server_1 = require("./server");
+exports.config = {
+    createdAt: 86400000,
+    refresh: 86400000
+};
 exports.arrayCache = [];
+let loading = false;
 const delay = (timeout) => __awaiter(void 0, void 0, void 0, function* () { return new Promise((resolve) => setTimeout(resolve, timeout)); });
 exports.delay = delay;
-let loading = false;
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, server_1.server)();
         if (!loading)
             yield refreshData();
         if (loading)
-            setInterval(() => refreshData(), 86400000);
+            setInterval(() => refreshData(), exports.config.refresh);
     });
 })();
 function refreshData() {
@@ -35,7 +39,7 @@ function refreshData() {
                 const { data } = yield (0, discord_controller_1.getUser)(key.id);
                 if (typeof data === "object" && data) {
                     const findUserIndex = exports.arrayCache.findIndex((user) => user.id === key.id);
-                    exports.arrayCache[findUserIndex].createdAt = DATE_NOW + 86400000;
+                    exports.arrayCache[findUserIndex].createdAt = DATE_NOW + exports.config.createdAt;
                     exports.arrayCache[findUserIndex].avatar = data.avatar;
                 }
             }
