@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import { usersCache } from "../../index.js";
 import { backupImages, getImageBackup } from "../../utils/backupImages.js";
@@ -6,7 +6,7 @@ import { imageOptions, optimizeImages } from "../../utils/optimizeImages.js";
 import { config } from "../middlewares/manageCaches.js";
 import { getImageBuffer, getUser } from "../services/discordServices.js";
 
-interface CustomRequestUserById extends Request {
+type CustomRequestUserById = {
   params: {
     userId: string;
   };
@@ -14,7 +14,7 @@ interface CustomRequestUserById extends Request {
     width: string;
     height: string;
   };
-}
+} & Request;
 
 export const getUserById = async (
   req: CustomRequestUserById,
@@ -38,7 +38,13 @@ export const getUserById = async (
     let avatar: string;
     let format: string;
 
-    if (!user) {
+    if (user) {
+      format = user.avatar.format;
+      avatar = await getImageBackup({
+        userId: user.id,
+        format: user.avatar.format,
+      });
+    } else {
       const dateNew = Date.now();
       const userData = await getUser(userId);
 
@@ -76,12 +82,6 @@ export const getUserById = async (
           height,
         },
         createdAt: dateNew + config.createdAt,
-      });
-    } else {
-      format = user.avatar.format;
-      avatar = await getImageBackup({
-        userId: user.id,
-        format: user.avatar.format,
       });
     }
 
