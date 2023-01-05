@@ -1,7 +1,9 @@
-import { usersCache } from "../../index.js";
+import type { UserCache } from "../../types/users.js";
 import { backupImages } from "../../utils/backupImages.js";
 import { optimizeImages } from "../../utils/optimizeImages.js";
 import { getImageBuffer, getUser } from "../services/discordServices.js";
+
+export const usersCache: UserCache[] = [];
 
 export const config = {
   createdAt: 86400000,

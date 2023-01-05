@@ -1,9 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
-import { usersCache } from "../../index.js";
 import { backupImages, getImageBackup } from "../../utils/backupImages.js";
 import { imageOptions, optimizeImages } from "../../utils/optimizeImages.js";
-import { config } from "../middlewares/manageCaches.js";
+import { config, usersCache } from "../middlewares/manageCaches.js";
 import { getImageBuffer, getUser } from "../services/discordServices.js";
 
 type CustomRequestUserById = {

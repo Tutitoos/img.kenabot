@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
-import { usersCache } from "../../index.js";
+import { usersCache } from "../middlewares/manageCaches.js";
 
 export const getUsers = (req: Request, res: Response, next: NextFunction) => {
   try {

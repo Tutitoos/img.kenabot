@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getEndpoints, getPing } from "../controllers/generalControllers.js";
-import routes from "./routes.js";
+import { getEndpoints, getPing } from "../../controllers/generalControllers.js";
+import routes from "../routes.js";
 
 const generalRouter = Router();
 const { ping, endpoints } = routes.general;
