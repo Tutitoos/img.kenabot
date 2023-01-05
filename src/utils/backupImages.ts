@@ -1,6 +1,6 @@
 import CustomError from "../CustomError/CustomError.js";
 import connectStorage from "../storage/supabase.js";
-import { Formats } from "../types/images.js";
+import { type Formats } from "../types/images.js";
 
 export const backupImages = async ({
   userId,

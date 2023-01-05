@@ -1,6 +1,6 @@
 import sharp from "sharp";
 import CustomError from "../CustomError/CustomError.js";
-import { Formats, ImageOptionsProps } from "../types/images.js";
+import { type Formats, type ImageOptionsProps } from "../types/images.js";
 
 export const optimizeImages = async ({
   file,
@@ -21,7 +21,7 @@ export const optimizeImages = async ({
     let imageBuffer = file;
 
     if (format !== "gif") {
-      const image = await sharp(file)
+      const image = sharp(file)
         .resize(width, height, { fit: "contain" })
         .webp({ quality: 90 })
         .toFormat(formatImage);

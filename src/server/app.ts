@@ -2,8 +2,8 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import { generalError, notFoundEndpoint } from "./middlewares/errors.js";
-import { generalRouter, userRouter, usersRouter } from "./routes/index.js";
-import routes from "./routes/routes.js";
+import { generalRouter, userRouter, usersRouter } from "./routers/index.js";
+import routes from "./routers/routes.js";
 
 const app = express();
 const { general, users, user } = routes;

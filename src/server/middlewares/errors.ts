@@ -37,7 +37,7 @@ export const generalError = (
     )
   );
 
-  res.status(statusCode).json({
+  return res.status(statusCode).json({
     message: publicMessage,
   });
 };

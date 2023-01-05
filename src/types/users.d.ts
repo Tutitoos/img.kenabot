@@ -1,4 +1,4 @@
-import { Formats } from "./images";
+import { type Formats } from "./images";
 
 export interface UserCache {
   id: string;
@@ -10,4 +10,9 @@ export interface UserCache {
     height: number;
   };
   createdAt: number;
+}
+
+export interface UserDiscord {
+  id: string;
+  avatar: string;
 }

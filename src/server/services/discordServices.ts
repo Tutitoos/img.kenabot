@@ -1,7 +1,8 @@
 import axios from "axios";
 import CustomError from "../../CustomError/CustomError.js";
 import environments from "../../loadEnvironments.js";
-import { Formats } from "../../types/images.js";
+import { type Formats } from "../../types/images.js";
+import { type UserDiscord } from "../../types/users.js";
 
 const { discordApiUrl, discordToken } = environments;
 
@@ -13,11 +14,14 @@ export const getUser = async (
   format: Formats;
 }> => {
   try {
-    const response = await axios.get(`${discordApiUrl}users/${userId}`, {
-      headers: {
-        Authorization: `Bot ${discordToken}`,
-      },
-    });
+    const response = await axios.get<UserDiscord>(
+      `${discordApiUrl}users/${userId}`,
+      {
+        headers: {
+          authorization: `Bot ${discordToken}`,
+        },
+      }
+    );
     const responseData = response.data;
 
     const discordUrl = `https://cdn.discordapp.com/avatars/${responseData.id}/${responseData.avatar}.gif`;
@@ -38,13 +42,14 @@ export const getUser = async (
         (error as CustomError).statusCode ?? 500
       );
     }
+
     return null;
   }
 };
 
 export const getImageBuffer = async (imageUrl: string): Promise<Buffer> => {
   try {
-    const response = await axios.get(imageUrl, {
+    const response = await axios.get<Buffer>(imageUrl, {
       responseType: "arraybuffer",
     });
     const responseData = response.data;

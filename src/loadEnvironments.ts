@@ -25,7 +25,7 @@ interface Environments {
 }
 
 const environments: Environments = {
-  port: +port || 4001,
+  port: Number(port) || 4001,
   debug,
   discordApiUrl,
   discordToken,

@@ -13,7 +13,7 @@ const connectStorage = async () => {
   try {
     const connection = createClient(url, key);
 
-    const storage = await connection.storage.from(storageName);
+    const storage = connection.storage.from(storageName);
     const storageList = await storage.list();
 
     if (storageList.error) throw storageList.error;
