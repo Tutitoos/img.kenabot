@@ -17,10 +17,10 @@ export const getEndpoints = async (req: Request, res: Response) => {
       [general.endpoints]: "Get all endpoints list",
     },
     users: {
-      [users.root + users.list]: "Get all users in cache list",
+      [users.root]: "Get all users in cache list",
     },
     user: {
-      [(user.root, +user.user)]: "Get a user for userId",
+      [user.root + user.user]: "Get a user for userId",
     },
   });
 };
