@@ -13,7 +13,8 @@
     "test:dev": "jest --watchAll",
     "test:coverage": "jest --coverage --watchAll=false",
     "test:coverage:notest": "jest --coverage --watchAll=false --passWithNoTests",
-    "test:coverage:dev": "jest --coverage --watchAll"
+    "test:coverage:dev": "jest --coverage --watchAll",
+    "lint": "eslint src"
   },
   "dependencies": {
     "axios": "1.2.2",

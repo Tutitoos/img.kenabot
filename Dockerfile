@@ -7,7 +7,6 @@ WORKDIR /kenaimg
 COPY package.json ./
 
 RUN apt update
-RUN apt install glibc-source -y
 
 RUN npm install -g npm@latest
 RUN npm install --force
