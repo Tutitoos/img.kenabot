@@ -5,10 +5,6 @@ USER root
 WORKDIR /kenaimg
 
 COPY package.json ./
-
-RUN apt update
-
-RUN npm install -g npm@latest
 RUN npm install --force
 
 COPY . .

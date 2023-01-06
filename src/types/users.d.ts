@@ -6,8 +6,6 @@ export interface UserCache {
     discordUrl: string;
     backupUrl: string;
     format: Formats;
-    width: number;
-    height: number;
   };
   createdAt: number;
 }

@@ -1,17 +1,13 @@
 import sharp from "sharp";
 import CustomError from "../CustomError/CustomError.js";
-import { type Formats, type ImageOptionsProps } from "../types/images.js";
+import { type Formats } from "../types/images.js";
 
 export const optimizeImages = async ({
   file,
   format,
-  width,
-  height,
 }: {
   file: Buffer;
   format: Formats;
-  width: number;
-  height: number;
 }): Promise<{
   file: Buffer;
   format: Formats;
@@ -22,7 +18,7 @@ export const optimizeImages = async ({
 
     if (format !== "gif") {
       const image = sharp(file)
-        .resize(width, height, { fit: "contain" })
+        .resize(128, 128, { fit: "contain" })
         .webp({ quality: 90 })
         .toFormat(formatImage);
       imageBuffer = await image.toBuffer();
@@ -41,14 +37,3 @@ export const optimizeImages = async ({
     throw customError;
   }
 };
-
-export const imageOptions = ({
-  width,
-  height,
-}: ImageOptionsProps): {
-  width: number;
-  height: number;
-} => ({
-  width: parseFloat(width ?? "128"),
-  height: parseFloat(height ?? "128"),
-});

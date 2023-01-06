@@ -9,8 +9,6 @@ const mockUsers: UserCache[] = [
       backupUrl:
         "https://etqjyranjpetocvhiqfx.supabase.co/storage/v1/object/public/images/793976194072313927.webp",
       format: "webp",
-      width: 128,
-      height: 128,
     },
     createdAt: 1673023377806,
   },
@@ -22,8 +20,6 @@ const mockUsers: UserCache[] = [
       backupUrl:
         "https://etqjyranjpetocvhiqfx.supabase.co/storage/v1/object/public/images/816419890545295362.webp",
       format: "webp",
-      width: 128,
-      height: 128,
     },
     createdAt: 1673023419817,
   },

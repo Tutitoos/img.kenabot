@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import { backupImages, getImageBackup } from "../../utils/backupImages.js";
-import { imageOptions, optimizeImages } from "../../utils/optimizeImages.js";
+import { optimizeImages } from "../../utils/optimizeImages.js";
 import { config, usersCache } from "../middlewares/manageCaches.js";
 import { getImageBuffer, getUser } from "../services/discordServices.js";
 
@@ -21,7 +21,6 @@ export const getUserById = async (
   next: NextFunction
 ) => {
   const { userId } = req.params;
-  const { width, height } = imageOptions(req.query);
 
   try {
     if (!userId) {
@@ -57,8 +56,6 @@ export const getUserById = async (
 
       const imageBuffer = await getImageBuffer(userData.avatar);
       const imageOptimize = await optimizeImages({
-        width,
-        height,
         format: userData.format,
         file: imageBuffer,
       });
@@ -77,8 +74,6 @@ export const getUserById = async (
           discordUrl: userData.avatar,
           backupUrl: imageBackup.imageUrl,
           format: imageBackup.format,
-          width,
-          height,
         },
         createdAt: dateNew + config.createdAt,
       });

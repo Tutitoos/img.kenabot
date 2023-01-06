@@ -28,8 +28,6 @@ const manageUsersCache = async () => {
 
         const imageBuffer = await getImageBuffer(userData.avatar);
         const imageOptimize = await optimizeImages({
-          width: user.avatar.width,
-          height: user.avatar.height,
           format: userData.format,
           file: imageBuffer,
         });
@@ -43,8 +41,6 @@ const manageUsersCache = async () => {
           discordUrl: userData.avatar,
           backupUrl: imageBackup.imageUrl,
           format: imageBackup.format,
-          width: user.avatar.width,
-          height: user.avatar.height,
         };
         usersCache[findUserIndex].createdAt = dateNow + config.createdAt;
       }
