@@ -3,7 +3,7 @@ import { backupImages } from "../../utils/backupImages.js";
 import { optimizeImages } from "../../utils/optimizeImages.js";
 import { getImageBuffer, getUser } from "../services/discordServices.js";
 
-export const usersCache: UserCache[] = [];
+export let usersCache: UserCache[] = [];
 
 export const config = {
   createdAt: 86400000,
@@ -22,27 +22,32 @@ const manageUsersCache = async () => {
       const userData = await getUser(user.id);
 
       if (userData) {
-        const findUserIndex = usersCache.findIndex(
-          (userCache) => userCache.id === user.id
-        );
+        const newUsers = usersCache.map(async (userCache) => {
+          if (userCache.id !== user.id) return userCache;
 
-        const imageBuffer = await getImageBuffer(userData.avatar);
-        const imageOptimize = await optimizeImages({
-          format: userData.format,
-          file: imageBuffer,
-        });
-        const imageBackup = await backupImages({
-          userId: userData.id,
-          format: imageOptimize.format,
-          file: imageOptimize.file,
+          const imageBuffer = await getImageBuffer(userData.avatar);
+          const imageOptimize = await optimizeImages({
+            format: userData.format,
+            file: imageBuffer,
+          });
+          const imageBackup = await backupImages({
+            userId: userData.id,
+            format: imageOptimize.format,
+            file: imageOptimize.file,
+          });
+
+          return {
+            ...userCache,
+            avatar: {
+              discordUrl: userData.avatar,
+              backupUrl: imageBackup.imageUrl,
+              format: imageBackup.format,
+            },
+            createdAt: dateNow + config.createdAt,
+          };
         });
 
-        usersCache[findUserIndex].avatar = {
-          discordUrl: userData.avatar,
-          backupUrl: imageBackup.imageUrl,
-          format: imageBackup.format,
-        };
-        usersCache[findUserIndex].createdAt = dateNow + config.createdAt;
+        usersCache = await Promise.all(newUsers);
       }
     }
   });

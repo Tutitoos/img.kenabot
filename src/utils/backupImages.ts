@@ -19,6 +19,7 @@ export const backupImages = async ({
 
     await supabase.upload(`${userId}.${format}`, file, {
       contentType: `image/${format}`,
+      upsert: true,
     });
 
     const {
