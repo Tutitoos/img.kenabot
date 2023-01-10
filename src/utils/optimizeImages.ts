@@ -18,7 +18,7 @@ export const optimizeImages = async ({
 
     if (format !== "gif") {
       const image = sharp(file)
-        .resize(128, 128, { fit: "contain" })
+        .resize(512, 512, { fit: "contain" })
         .webp({ quality: 100 })
         .toFormat(formatImage);
       imageBuffer = await image.toBuffer();
