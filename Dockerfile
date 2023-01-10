@@ -1,10 +1,12 @@
-FROM node:lts-bullseye
+FROM node:lts-bullseye-slim
 
 USER root
 
 WORKDIR /kenaimg
 
 COPY package.json ./
+
+RUN apt update && apt install -y python3 build-essential
 RUN npm install --force
 
 COPY . .
