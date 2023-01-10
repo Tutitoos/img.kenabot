@@ -22,3 +22,8 @@
 **/values.dev.yaml
 LICENSE
 README.md
+Makefile
+jest.config.js
+.eslintrc.cjs
+.env.example
+.idea
